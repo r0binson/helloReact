@@ -1,0 +1,108 @@
+<html>
+  <head>
+    <script src="lib/react.min.js"></script>
+    <script src="lib/JSXTransformer.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap-3.3.5-dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet" type="text/css" href="css/ListProducts.css">
+  </head>
+  <body>
+    <div id="container" class="container">
+    </div>
+      
+      <script type="text/jsx">          
+          
+        var Search = React.createClass({
+          render: function () {
+            return (
+              <div id="search">
+                <input id="searchInput" className="search" placeholder="Search"/>
+              </div>
+            );
+          }
+        });
+
+        var Header = React.createClass({
+          render: function () {
+            return (
+                <div className="row table-header">
+                  <div className="col-xs-8">Name </div>
+                  <div className="col-xs-4">Price</div>
+                </div>
+            );
+          }
+        });
+
+        var ItemRow = React.createClass ({
+            render: function () {
+                return (
+                    <div className="row tableRows" >
+                      <div className="col-xs-8">{this.props.name}</div>
+                      <div className="col-xs-4 price">{this.props.price}</div>
+                    </div>
+                );                
+            }
+        });
+
+        var DisplayTable = React.createClass({          
+          render: function () {
+            return (
+              <div id="tableRows" className="productTable">            
+                <Header />  
+                <ItemRow name="Volleyball" price="$79.45" />
+                <ItemRow name="Football" price="$49.99" />            
+                <ItemRow name="Baseball" price="$9.99" />
+                <ItemRow name="Basketball" price="$29.99" />
+              </div>
+            );
+          }
+        });
+
+        var DisplayTable2 = React.createClass({          
+          render: function () {            
+            return (
+              <div id="tableRows" className="productTable">            
+                <Header />  
+                <ProductList products={products} />
+              </div>
+            );
+          }
+        });
+
+        var products = [
+          {category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football"},
+          {category: "Sporting Goods", price: "$9.99", stocked: true, name: "Baseball"},
+          {category: "Sporting Goods", price: "$29.99", stocked: false, name: "Basketball"},
+          {category: "Electronics", price: "$99.99", stocked: true, name: "iPod Touch"},
+          {category: "Electronics", price: "$399.99", stocked: false, name: "iPhone 5"},
+          {category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7"}
+        ];  
+
+        var ProductList = React.createClass ({
+          render: function () {
+            var listItems = this.props.products;
+            return (
+              listItems.map(function(listItem){
+                return (
+                   <ItemRow name={listItem.name} price={listItem.price} />
+                );
+              })
+            );
+          }
+        });
+
+
+        React.render(
+          <div>
+            <Search />
+            <ProductList />
+          </div>,
+          document.getElementById("container")
+        );
+      </script>      
+  </body>
+</html>
